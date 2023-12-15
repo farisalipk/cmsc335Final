@@ -114,7 +114,7 @@ app.post('/register', async (req, res) => {
       const hashedPassword = bcrypt.hashSync(password, 10);
       const newUser = new User({ username, password: hashedPassword });
       await newUser.save();
-      res.send('Registration successful! You can now log in.');
+      res.send('Registration successful! You can now log in. <br> <a href="/login">Login</a>');
     }
   } catch (error) {
     console.error(error);
