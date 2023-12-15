@@ -86,14 +86,9 @@ app.get('/logout', (req, res) => {
 app.get('/dashboard', (req, res) => {
   if (req.session.user) {
     const username = req.session.user;
-    res.send(`
-      <div class="container">
-        <h1>Welcome to the dashboard, ${username}!</h1>
-        <a href="/logout">Logout</a>
-        <a href="/getActivity">Find an Activity to Do!</a>
-        
-      </div>
-    `);
+    res.render("dashboard", {
+      user: req.session.user
+    })
   } else {
     res.redirect('/login');
   }

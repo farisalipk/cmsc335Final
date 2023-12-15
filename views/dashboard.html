@@ -7,10 +7,12 @@
         <link rel="stylesheet" href="/styles.css">
     </head>
 
-    <body>
+    <body class="standard-background">
+        <h1 style="text-decoration: underline;">Dashboard</h1>
         <div class="container">
-            <h1>Welcome to the dashboard, <span class="username"></span>!</h1>
-            <a href="/logout">Logout</a>
+            <h1>Welcome to the dashboard, <%= user %>!</h1>
+            <a href="/logout">Logout</a> <br>
+            <a href="/getActivity">Find an Activity to Do!</a> <br>
         </div>
     </body>
 

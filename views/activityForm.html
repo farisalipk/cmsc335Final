@@ -8,7 +8,6 @@
     </head>
     <body id="formBody">
         <script defer src="activityProcessing.js"></script>
-        <script defer src="regen.js"></script>
         <h1 id = "header"> <%= user %>, you seem bored... Let's find an activity for you to do!</h1>
         <div id="formContent">
             <form id = "activityForm" action="/getActivity" method="POST">
@@ -65,7 +64,8 @@
                         <input type="range" id="maxPrice" name="maxPrice" min=0 max=1 step=0.05>
                     </div>
                     <br>
-                    <button type="submit" id="getActivityBtn">Submit</button>
+                    <button type="submit" id="getActivityBtn">Submit</button> <br> <br>
+                    <a href="/dashboard">Dashboard</a>
             </form>
         </div>
     </body>
