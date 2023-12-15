@@ -131,3 +131,9 @@ h2 {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.centered {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+}
