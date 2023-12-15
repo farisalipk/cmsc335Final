@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="../styles.css">
+    </head>
+    <body id="formBody">
+        <script defer src="activityProcessing.js"></script>
+        <script defer src="regen.js"></script>
+        <h1 id = "header"> <%= user %>, you seem bored... Let's find an activity for you to do!</h1>
+        <div id="formContent">
+            <form id = "activityForm" action="/getActivity" method="POST">
+                <label for = "actType"><strong>Activity Type</strong></label> <br>
+                <select name="actType" id="actType">
+                    <option value="any" selected>Any</option>
+                    <option value="education">Education</option>
+                    <option value="recreational">Recreational</option>
+                    <option value="social">Social</option>
+                    <option value="diy">DIY</option>
+                    <option value="charity">Charity</option>
+                    <option value="cooking">Cooking</option>
+                    <option value="relaxation">Relaxation</option>
+                    <option value="music">Music</option>
+                    <option value="busywork">Busy Work</option>
+                    </select>
+
+                    <br><br>
+
+                    <strong>Do you care about number of participants?</strong> <br>
+                    <input type="radio" name="choosePart" value="No" checked> No
+                    <input type="radio" name="choosePart" value="Yes"> Yes <br>
+
+                    <div class="conditional" id="accPart">
+                        <label for="participants">Number of Participants</label> &nbsp; &nbsp; &nbsp;
+                        <input type="number" id="participants" name="participants" min=1> <br>
+
+                    </div>
+
+                    <strong>Do you care how difficult the activity is?</strong> <br>
+                    <input type="radio" name="chooseDifficulty" value="No" checked> No
+                    <input type="radio" name="chooseDifficulty" value="Yes"> Yes
+
+                    <div class="conditional" id="accCond">
+                        <strong>Difficulty of Activity</strong> (Rightmost is most difficult) <br>
+                        <label for="minAcc">Minimum Difficulty</label> &nbsp; &nbsp; &nbsp;
+                        <label for="maxAcc"> Maximum Difficulty</label> <br>
+                        <input type="range" id="minAcc" name="minAcc" min=0 max=1 step=0.05>
+                        <input type="range" id="maxAcc" name="maxAcc" min=0 max=1 step=0.05> <br>
+
+                    </div>
+
+                    <br> 
+                    <strong>Do you care how expensive the activity is?</strong> <br>
+                    <em> If your name is Faris Ali, then select yes -> most expensive</em> <br>
+                    <input type="radio" name="choosePrice" value="No" checked> No
+                    <input type="radio" name="choosePrice" value="Yes"> Yes
+
+                    <div class="conditional" id="accPrice">
+                        <strong>Price of Activity</strong> (Rightmost is most expensive) <br>
+                        <label for="minPrice">Minimum Price</label> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <label for="maxPrice">Maximum Price</label> <br>
+                        <input type="range" id="minPrice" name="minPrice" min=0 max=1 step=0.05> 
+                        <input type="range" id="maxPrice" name="maxPrice" min=0 max=1 step=0.05>
+                    </div>
+                    <br>
+                    <button type="submit" id="getActivityBtn">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

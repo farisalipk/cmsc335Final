@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 const config = require('./config'); // Load configuration module
 const path = require('path');
 const dotenv = require('dotenv');
-
 dotenv.config();
 
 const app = express();
@@ -90,8 +89,9 @@ app.get('/dashboard', (req, res) => {
     res.send(`
       <div class="container">
         <h1>Welcome to the dashboard, ${username}!</h1>
-        <a href="/profile">View Profile</a>
         <a href="/logout">Logout</a>
+        <a href="/getActivity">Find an Activity to Do!</a>
+        
       </div>
     `);
   } else {
@@ -132,7 +132,61 @@ app.get('/', (req, res) => {
   res.redirect('/login');
 });
 
+app.get('/getActivity', async (req, res) => {
+  if(req.session.user){
+    res.render("activityForm", {
+      user: req.session.user
+    })
+  } else {
+     res.redirect("/login")
+  }
+})
+app.post('/getActivity', async (req, res) => {
+  const activityType = req.body.actType;
+  const diffMin = req.body.chooseDifficulty === "Yes" ? req.body.minAcc : "any";
+  const diffMax = req.body.chooseDifficulty === "Yes" ? req.body.maxAcc : "any";
+  const priceMin = req.body.choosePrice === "Yes" ? req.body.minPrice : "any";
+  const priceMax = req.body.choosePrice === "Yes" ? req.body.maxPrice : "any";
+  const numParticipants = req.body.choosePart === "Yes" ? req.body.participants : "any";
+  //endpoint to hit api
+  const endpoint = generateEndpoint(activityType, diffMin, diffMax, priceMin, priceMax, numParticipants);
+  const response = await fetch(endpoint);
+  const json = await response.json();
+  let requests = "<h5>Here are the things you requested for your activity: </h5>"
+  requests += `<ol> <li> Activity Type: ${activityType} </li>`
+  requests += `<li> Difficulty Range: ${req.body.chooseDifficulty === "No" ? "any": diffMin + " to " + diffMax}</li>`
+  requests += `<li> Price Range: ${req.body.choosePrice === "No" ? "any": priceMin + " to " + priceMax}</li>`
+  requests += `<li> Participants: ${req.body.choosePart === "No" ? "any": numParticipants}</li> </ol>`
+  res.render("activityPage.html", {
+    activity: json["activity"] ?? json["error"],
+    requests: requests
+  });
+  
+})
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+function generateEndpoint(activityType, diffMin, diffMax, priceMin, priceMax, numParticipants){
+  identifier = "?"
+  endpoint = "http://www.boredapi.com/api/activity"
+  if(activityType != "any"){
+    endpoint += `${identifier}type=${activityType}`
+    identifier = "&"
+  }
+  if(diffMin != "any" && diffMax != "any"){
+    endpoint += `${identifier}minaccessibility=${diffMin}&maxaccessibility=${diffMax}`
+    identifier = "&"
+  } 
+  if(priceMin != "any" && priceMax != "any"){
+    endpoint += `${identifier}minprice=${priceMin}&maxprice=${priceMax}`
+    identifier = "&"
+  } 
+  if(numParticipants != "any"){
+    endpoint += `${identifier}participants=${numParticipants}`
+    identifier = "&"
+  }
+  return endpoint
+}

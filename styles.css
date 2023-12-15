@@ -77,3 +77,51 @@ h2 {
     transform: translateX(5px);
   }
 }
+.conditional {
+  display: none
+}
+#formBody {
+  width: 100vw;
+  height: 100vh;
+  background: url('/images/camping.jpg');
+  background-size: cover;
+  background-attachment: scroll;
+  background-repeat: no-repeat;
+  
+}
+#formContent {
+  margin: 50px auto;
+  margin-bottom: 5%; 
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+#activityContainer {
+  margin: 50px auto;
+  margin-bottom: 5%; 
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+  max-width: 400px;
+}
+#header {
+  color: white
+}
+#btnRow {
+  display: flex;
+  flex-direction: row;
+}
+#btnRow button {
+  margin: 10px;
+}
